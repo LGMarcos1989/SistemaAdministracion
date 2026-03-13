@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animaciones para el sidebar */
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+/* Rotación de iconos */
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Transición para submenús */
+.submenu {
+    transition: max-height 0.3s ease-out;
+}
+
+/* Scrollbar personalizado */
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
