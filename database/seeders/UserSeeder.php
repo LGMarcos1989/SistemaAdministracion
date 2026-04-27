@@ -26,8 +26,6 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach($data as $d){
-            User::create($d);
-        }
+      User::upsert($data,['email'],[]);
     }
 }

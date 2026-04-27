@@ -32,8 +32,6 @@ class PersonSeeder extends Seeder
             ],
         ];
 
-        foreach ($data as $d) {
-            PersonModel::create($d);
-        }
+         PersonModel::upsert($data,['dni'],[]);
     }
 }

@@ -166,7 +166,7 @@
                                         <i class="fas fa-users text-gray-300 text-4xl mb-4"></i>
                                         <h3 class="text-lg font-medium text-gray-900 mb-2">No hay tipos impositivos registrados</h3>
                                         <p class="text-gray-500 mb-4">Comience agregando su primer impuesto</p>
-                                        <a href="{{ route('admin.clientes.create') }}"
+                                        <a href="{{ route('admin.impuestos.create') }}"
                                             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                                             <i class="fas fa-plus mr-2"></i> Crear Primer Tipo Impositivo
                                         </a>

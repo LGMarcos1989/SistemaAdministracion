@@ -68,10 +68,13 @@ class ClientController extends Controller
     {
         $request->validate([
             'bussiness_name' => 'required|string',
-            'cif' => 'required|string',
+            'cif' => 'required|string|min:9|max:9',
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|string',
+        ], [
+            'cif.min' =>'El cif debe tener 9 caracteres',
+            'cif.max' =>'El cif debe tener 9 caracteres'
         ]);
 
        // dd( $request->all());

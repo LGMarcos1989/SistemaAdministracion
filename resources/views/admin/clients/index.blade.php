@@ -242,10 +242,6 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
 
-                                        <a href="{{ route('admin.clientes.show', $cliente) }}"
-                                            class="text-green-600 hover:text-green-900" title="Ver detalles">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
 
                                         <form action="{{ route('admin.clientes.destroy', $cliente) }}" method="POST"
                                             class="inline"

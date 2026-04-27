@@ -19,10 +19,7 @@ class UserTypeSeeder extends Seeder
             ['name' => 'Consultor']
         ];
 
-        //Recorremos cada uno de estos campos
-        foreach($data as $d){
-            UserTypeModel::create($d);
-        }
+        UserTypeModel::upsert($data, ['name'],[]);
 
        
     }

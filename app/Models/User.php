@@ -46,7 +46,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function user_type()
+    public function userType()
     {
         return $this->belongsTo(UserTypeModel::class, 'user_type_id');
     }

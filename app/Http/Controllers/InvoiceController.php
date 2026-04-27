@@ -57,9 +57,38 @@ class InvoiceController extends Controller
      */
     public function create()
     {
+        //Consultar base de datos y hacer factura consecutiva y si no iniciarla desde cero
+        //Traemos la ultima factura que fue registrada
+        $ultimaFactura = InvoiceModel::latest()->first();
+        //Si hay factura FACT-00001
+        if($ultimaFactura){
+            $partes = explode ('-',$ultimaFactura->invoice_number);
+            $ultimoNumero = intval($partes[1]);
+            $proximoNumero = $ultimoNumero + 1;
+        }else{
+            $proximoNumero = 1;
+        }
+
+        //Esto es lo que nos da el numero FACT-000001
+        $propuestaFactura = 'FACT-' . str_pad($proximoNumero, 6, '0',STR_PAD_LEFT);
+
         $clientes=ClientModel::select('id','bussiness_name' , 'cif')->get();
+        if($clientes->count()<=0){
+             return redirect()->route('admin.clientes.index')->with('flash', [
+            'title' => 'No existen clientes creados, debe registrarlos primero',
+            'icon' =>'warning'
+        ]);
+        }
+        
         $codigos =typeRateModel::select('id','name', 'value')->get();
-        return view('admin.invoice.create' , compact('clientes', 'codigos'));
+           if($codigos->count()<=0){
+             return redirect()->route('admin.impuestos.index')->with('flash', [
+            'title' => 'No existen codigos impositivos creados, debe registrarlos primero',
+            'icon' =>'warning'
+        ]);
+        }
+
+        return view('admin.invoice.create' , compact('clientes', 'codigos', 'propuestaFactura'));
     }
 
     /**
@@ -67,21 +96,35 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        // $ultimaFactura = InvoiceModel::latest()->first();
+        // if ($ultimaFactura) {
+        //     $numero = intval(substr($ultimaFactura->numero_factura, 4)) + 1;
+        // } else {
+        //     $numero = 1;
+        // }
+        // $numeroFactura = 'FAC-' . str_pad($numero, 3, '0', STR_PAD_LEFT);
+        // InvoiceModel::create([
+        //     'numero_factura' => $numeroFactura,
+        // ]);
         $request->validate([
             'invoice_number'=> 'nullable|string',
             'invoice_date' => 'required|date',
             'description' => 'nullable|string',
             'tax_base' => 'required',
             'type_rate_id'=> 'required|integer',
-            'total'=> 'required|integer',
+            'total'=> 'required|string',
             'status'=> 'required|string',
             'nota'=> 'nullable|sometimes|string',
             'client_id'=> 'required|integer',
         ]);
 
+       
         InvoiceModel::create($request->all());
 
-        return redirect()->route('admin.facturacion.index');
+        return redirect()->route('admin.facturacion.index')->with('flash', [
+            'title' => 'Registro actualizado',
+            'icon' =>'success'
+        ]);
     }
 
     /**
@@ -89,7 +132,9 @@ class InvoiceController extends Controller
      */
     public function show(InvoiceModel $facturacion)
     {
-        //
+    
+        $facturacion->load(['client','type_rate']);
+        return view('admin.invoice.show',compact('facturacion'));
     }
 
     /**

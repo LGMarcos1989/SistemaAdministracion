@@ -14,7 +14,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $person = PersonModel::with('user.user_type')->paginate(10);
+       $person = PersonModel::with('user.userType')->paginate(10);
         return view('admin.staff.index', compact('person'));
 
     }
@@ -33,8 +33,8 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'email'=> 'string|required',
+        $request->validate([  
+            'email'=> 'email|required',
             'password'=>'string|required',
             'user_type_id' => 'integer|required',
             'fullname' => 'string|required',
@@ -71,7 +71,7 @@ class PersonController extends Controller
      */
     public function show(PersonModel $staff)
     {
-        //
+        return view ('admin.staff.show', compact('staff'));
     }
 
     /**
@@ -89,7 +89,7 @@ class PersonController extends Controller
     public function update(Request $request, PersonModel $staff)
     {
          $request->validate([
-            'email'=> 'string|required',
+            'email'=> 'email|required',
             'password'=>'string|required',
             'user_type_id' => 'integer|required',
             'fullname' => 'string|required',

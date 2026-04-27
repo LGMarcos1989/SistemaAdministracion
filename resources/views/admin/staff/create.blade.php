@@ -70,7 +70,6 @@
                 <form action="{{ route('admin.staff.store') }}" method="POST">
                     @csrf
 
-
                     <div class="mb-8">
                         <h3 class="text-md font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">
                             <i class="fas fa-id-card text-blue-500 mr-2"></i> Información Básica
@@ -185,7 +184,7 @@
                                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                                     Contraseña <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="password" name="password" value="{{ old('password') }}"
+                                <input type="password" id="password" name="password" value="{{ old('password') }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                      required>
                                 @error('password')

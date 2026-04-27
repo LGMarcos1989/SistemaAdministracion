@@ -169,7 +169,7 @@
                                        
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $p->user->user_type->name }}
+                                                {{ $p->user->userType->name }}
                                             </div>
                                         </div>
                                     </div>
