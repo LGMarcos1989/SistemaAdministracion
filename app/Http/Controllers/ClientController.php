@@ -20,24 +20,28 @@ class ClientController extends Controller
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('fullname', 'like', "%{$search}%")
-                    ->orWhere('lastname', 'like', "%{$search}%")
+                $q->where('bussiness_name', 'like', "%{$search}%")
                     ->orWhere('cif', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");
+   
             });
         }
 
-        if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
-        }
+
+        if($request->has('status') && $request->status ==='Abierto'){
+                        $query->orWhere('status',$request->status);
+                    }
+                     elseif($request->has('status') && $request->status ==='Cerrado'){
+                        $query->orWhere('status',$request->status);
+                    }
 
         // Obtener clientes paginados
         $clientes = $query->latest()->paginate(10);
 
         // Calcular estadísticas
         $totalClientes = ClientModel::count();
-        $activosCount = ClientModel::where('status', 'Activo')->count();
-        $inactivosCount = ClientModel::where('status', 'Inactivo')->count();
+        $abiertoCount = ClientModel::where('status', 'Abierto')->count();
+        $cerradoCount = ClientModel::where('status', 'Cerrado')->count();
 
         // Calcular NUEVOS ESTE MES con Carbon
         $nuevosEsteMes = ClientModel::whereMonth('created_at', Carbon::now()->month)
@@ -47,8 +51,8 @@ class ClientController extends Controller
         return view('admin.clients.index', compact(
             'clientes',
             'totalClientes',
-            'activosCount',
-            'inactivosCount',
+            'abiertoCount',
+            'cerradoCount',
             'nuevosEsteMes'
         ));
     }
@@ -71,18 +75,12 @@ class ClientController extends Controller
             'cif' => 'required|string|min:9|max:9',
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
-            'email' => 'nullable|string',
+            'email' => 'nullable|sometimes|email',
         ], [
             'cif.min' =>'El cif debe tener 9 caracteres',
-            'cif.max' =>'El cif debe tener 9 caracteres'
+            'cif.max' =>'El cif debe tener 9 caracteres',
+            'email.email' =>'El email debe tener forma de ejemplo@hotmail.com'
         ]);
-
-       // dd( $request->all());
-        //dd( $request->bussiness_name);
-        //dd( $request->cif);
-        //dd( $request->address);
-        //dd( $request->phone);
-        //dd( $request-> email);
        
 
         ClientModel::create([
@@ -124,12 +122,16 @@ class ClientController extends Controller
        // dd($request->all());
         $request->validate([
             'bussiness_name'=>'required|string',
-            'cif'=>'required|string',
+            'cif'=>'required|string|min:9|max:9',
             'address'=>'nullable|sometimes|string',
             'phone' => 'nullable|sometimes|string',
-            'email' => 'nullable|sometimes|string',
+            'email' => 'nullable|sometimes|email',
             'status' =>'required|string' 
 
+        ],[
+            'cif.min' =>'El cif debe tener 9 caracteres',
+            'cif.max' =>'El cif debe tener 9 caracteres',
+            'email.email' =>'El email debe tener forma de ejemplo@hotmail.com'
         ]);
     
         //dd($request->all());
@@ -152,8 +154,13 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClientModel $clientModel)
+    public function destroy(Request $request, ClientModel $cliente)
     {
-        //
+       $cliente->delete();
+
+        return redirect()->route('admin.clientes.index')->with('flash',[
+            'title' => 'Registro eliminado con éxito',
+            'icon' =>'success'
+        ]);
     }
 }

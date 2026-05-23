@@ -12,7 +12,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="p-6">
-                <form action="{{ route('admin.clientes.store') }}" method="POST">
+                <form novalidate  action="{{ route('admin.clientes.store') }}" method="POST">
                     @csrf
 
                     <div class="mb-8">
@@ -153,7 +153,7 @@
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <i class="fas fa-envelope text-gray-400"></i>
                                         </div>
-                                        <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                        <input type="string" id="email" name="email" value="{{ old('email') }}"
                                             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             placeholder="cliente@email.com">
                                     </div>

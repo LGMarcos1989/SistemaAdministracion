@@ -13,7 +13,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -93,20 +93,13 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div class="flex items-start pt-8">
+                                <a href="{{ route('admin.clientes.create') }}"
+                                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                                <i class="fas fa-plus mr-2"></i> Nuevo Cliente
+                                </a>
+                            </div>
 
-                           
-
-                            {{-- <div>
-                                <label for="bussiness_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Nombre Cliente <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" id="bussiness_name" name="bussiness_name" value="{{ old('bussiness_name') }}"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase"
-                                    placeholder="Ej: Madison" required>
-                                @error('bussiness_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div> --}}
                         </div>
                     </div>
 
@@ -193,6 +186,12 @@
                                 <div>
                                     <label for="tax_rate_id" class="block text-sm font-medium text-gray-700 mb-2">
                                         Código Impositivo <span class="text-red-500"> *</span>
+                                        
+                                        <a href="{{ route('admin.impuestos.create') }}"
+                                        class="inline-flex items-center ml-5 px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+                                         <i class="fas fa-plus mr-2"></i><span>Nuevo Tipo Impositivo</span> 
+                                         </a>
+                                         
                                     </label>
                                     <div class="relative">
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -212,6 +211,7 @@
                                     @error('type_rate_id')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
+                                    
                                 </div>
 
                                 <div>

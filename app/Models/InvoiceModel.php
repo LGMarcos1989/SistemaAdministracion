@@ -15,8 +15,8 @@ class InvoiceModel extends Model
             'tax_base',
             'type_rate_id',
             'total',
-             'status',
-            'nota',
+            'status',
+            'note',
             'client_id',
     ];
 
@@ -31,6 +31,8 @@ class InvoiceModel extends Model
     }
 
 
-
+public function cancelledInvoice(){
+    return $this->hasOne(cancelledInvoiceModel::class,'invoice_id');
+}
 
 }

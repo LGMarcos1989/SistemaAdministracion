@@ -11,7 +11,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -156,6 +156,24 @@
                                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                      <div>
+                                <label for="isActive" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Actualmente trabaja en la empresa <span class="text-red-500">*</span>
+                                </label>
+                                <select id="isActive" name="isActive" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase">
+                                     <option disabled selected>
+                                                 Seleccione si el trabajador sigue en la empresa o no
+                                            </option>
+                                    <option value="1"   {{old('isActive', $staff->isActive) ==1  ? 'selected' : ''}}>
+                                                Activo
+                                            </option>
+                                 <option value="0"  {{ old('isActive', $staff->isActive)  ==0 ? 'selected' : '' }}>
+                                                Inactivo
+                                            </option>
+                               
+                                </select>
+                            </div>
 
 
                                 </div>
@@ -205,7 +223,9 @@
                                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                                 <option disabled selected>Seleccione</option>
                                                 @foreach ($user_types as $ut)
-                                                    <option value="{{ $ut->id }}">{{ $ut->name }}</option>
+                                                    <option value="{{ $ut->id}}"{{ $staff->user->userType->name === $ut->name ? 'selected' : ''}}>
+                                                        {{ $ut->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -249,6 +269,7 @@
                                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                
 
                                 </div>
                             </div>

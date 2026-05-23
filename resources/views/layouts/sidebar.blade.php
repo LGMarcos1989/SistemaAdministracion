@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <i class="fas fa-chart-line text-blue-400 text-xl mr-3"></i>
-                <h1 class="text-lg font-bold">Loren<span class="text-blue-400">Admin</span></h1>
+                <a href="{{ route('admin.home') }}"><h1 class="text-lg font-bold">Loren<span class="text-blue-400">Admin</span></h1></a>
             </div>
             <button id="sidebar-toggle" class="text-gray-400 hover:text-white md:hidden">
                 <i class="fas fa-times"></i>
@@ -58,7 +58,7 @@
                         <li>
                             <a href="{{ route('admin.impuestos.create') }}"
                                 class="block p-2 rounded hover:bg-gray-800 text-sm">
-                                <i class="fas fa-search mr-2"></i>Nuevo
+                                <i class="fas fa-plus-circle mr-2"></i>Nuevo
                             </a>
                         </li>
                     </ul>
@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="block p-2 rounded hover:bg-gray-800 text-sm">
+                            <a href="{{ route('admin.staff.create') }}" class="block p-2 rounded hover:bg-gray-800 text-sm">
                                 <i class="fas fa-plus-circle mr-2"></i>Nuevo
                             </a>
                         </li>

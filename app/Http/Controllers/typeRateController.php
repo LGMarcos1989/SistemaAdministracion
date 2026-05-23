@@ -39,8 +39,11 @@ class typeRateController extends Controller
             'name' => $request->name,
             'value' => $request->value,
         ]);
-
-        return redirect () -> route('admin.impuestos.index');
+ 
+        return redirect () -> route('admin.impuestos.index')->with('flash', [
+            'title' => 'Registro creado con éxito',
+            'icon' =>'success'
+        ]);
     }
 
     /**
@@ -88,6 +91,11 @@ class typeRateController extends Controller
      */
     public function destroy(typeRateModel $impuesto)
     {
-        //
+        $impuesto->delete();
+
+        return redirect()->route('admin.impuestos.index')->with('flash',[
+            'title' => 'Registro eliminado con éxito',
+            'icon' =>'success'
+        ]);
     }
 }

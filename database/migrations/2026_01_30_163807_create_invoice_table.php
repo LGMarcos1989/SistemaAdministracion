@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('type_rate_id')->nullable()->constrained('type_rate')->onDelete('set null');
             $table->string('total');
             $table->enum('status',['Pendiente','Pagada', 'Anulada']);
-            $table->text('nota')->nullable();
+            $table->text('note')->nullable();
             $table->foreignId('client_id')->constrained('client');
             $table->timestamps();
         });

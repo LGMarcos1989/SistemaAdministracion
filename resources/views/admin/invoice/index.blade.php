@@ -4,7 +4,7 @@
 
 @section('section')
     <div class="container mx-auto px-4 py-6">
-        <!-- Header de la página -->
+        {{-- Header de la página --}}
         <div class="mb-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
@@ -20,11 +20,11 @@
             </div>
         </div>
 
-        <!-- Breadcrumb -->
+        {{-- Breadcrumb --}}
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -35,7 +35,7 @@
             </ol>
         </nav>
 
-        <!-- Alertas -->
+        {{-- Alertas --}}
         @if (session('success'))
             <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded">
                 <div class="flex">
@@ -62,12 +62,12 @@
             </div>
         @endif
 
-        <!-- Filtros y Búsqueda -->
+        {{-- Filtros y Búsqueda --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
             <div class="p-4">
                 <form action="{{ route('admin.facturacion.index') }}" method="GET"
                     class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
-                    <!-- Búsqueda -->
+                    {{-- Búsqueda --}}
                     <div class="flex-1">
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <!-- Filtro de Estado -->
+                    {{-- Filtro de Estado --}}
                     <div>
                         <select name="status"
                             class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -90,7 +90,7 @@
                         </select>
                     </div>
 
-                    <!-- Botones -->
+                    {{-- Botones --}}
                     <div class="flex space-x-2">
                         <button type="submit"
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
@@ -105,9 +105,9 @@
             </div>
         </div>
 
-        <!-- Tabla de Facturas-->
+        {{--  Tabla de Facturas --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <!-- Header de la tabla -->
+            {{-- Header de la tabla --}}
             <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
@@ -118,7 +118,7 @@
                         </p> --}}
                     </div>
 
-                    <!-- Exportar -->
+                    {{-- Exportar --}}
                     <div class="mt-2 md:mt-0">
                         <button type="button"
                             class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm">
@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- Tabla -->
+            {{-- Tabla --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -162,25 +162,25 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse ($facturas as $f)
                             <tr class="hover:bg-gray-50">
-                                <!-- ID -->
+                                {{-- ID --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="text-sm text-gray-900 font-medium">#{{ $f->id }}</span>
                                 </td>
 
-                                <!-- Nombre cliente -->
+                                {{-- Nombre cliente --}}
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
                                        
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $f->client_id }}
+                                                {{ $f->client->bussiness_name }}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
 
 
-                                   <!-- Numero de factura -->
+                                   {{-- Numero de factura --}}
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">
                                         
@@ -192,13 +192,13 @@
                                     </div>
                                 </td>
 
-                                   <!-- Total Factura-->
+                                   {{-- Total Factura--}}
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">
                                         
                                         @if ($f->total)
                                             <div class="flex items-center mt-1">
-                                                <span class="truncate max-w-xs">{{ $f->total }}</span>
+                                                <span class="truncate max-w-xs">{{getMoney($f->total)  }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -206,21 +206,26 @@
 
                                
 
-                                <!-- Estado -->
+                                {{-- Estado --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @php
                                         $clase = match ($f->status) {
-                                            'Pendiente' => 'fa-solid fa-hourglass-end text-red-600 bont-bold text-1xl',
-                                            'Pagada' => 'fa-solid fa-handshake-angle text-green-600 bont-bold text-1xl',
-                                            'Anulada' => 'fa-solid fa-ban  text-gray-600 bont-bold text-1xl',
-                                            'default' => 'fa-solid fa-slash  text-black-600 bont-bold text-1xl',
+                                            'Pendiente' => 'fa-solid fa-hourglass-end text-red-600 font-bold text-1xl',
+                                            'Pagada' => 'fa-solid fa-handshake-angle text-green-600 font-bold text-1xl',
+                                            'Anulada' => 'fa-solid fa-ban  text-gray-600 font-bold text-1xl',
+                                            'default' => 'fa-solid fa-slash  text-black-600 font-bold text-1xl',
                                         };
                                     @endphp
                                     <span> <i class = "{{ $clase }}"></i> {{ $f->status }}</span>
                                 </td>
-                                <!-- Acciones -->
+                                {{-- Acciones --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
+                                        <a href="{{ route('admin.facturacion.download-pdf', $f->id) }}"
+                                            class="text-green-600 hover:text-green-900" title="Exportar PDF">
+                                            <i class="fas fa-download text-red-600"></i>
+                                        </a>
+
                                         <a href="{{ route('admin.facturacion.edit', $f->id) }}"
                                             class="text-blue-600 hover:text-blue-900" title="Editar">
                                             <i class="fas fa-edit"></i>
@@ -230,17 +235,130 @@
                                             class="text-green-600 hover:text-green-900" title="Ver detalles">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <i class="fas fa-users text-gray-300 text-4xl mb-4"></i>
+                                        <h3 class="text-lg font-medium text-gray-900 mb-2">No hay facturas registrados</h3>
+                                        <p class="text-gray-500 mb-4">Comience agregando su primera factura</p>
+                                        <a href="{{ route('admin.facturacion.create') }}"
+                                            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                                            <i class="fas fa-plus mr-2"></i> Crear Primera Factura
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        {{-- Tabla de abono --}}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mt-6">
+            {{-- Header de la tabla --}}
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-800">Lista de Abonos</h2>
+                    </div>
 
-                                        {{-- <form action="{{ route('admin.facturacion.destroy', $facturas) }}" method="POST"
-                                            class="inline"
-                                            onsubmit="return confirm('¿Está seguro de que desea eliminar esta factura?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900"
-                                                title="Eliminar">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form> --}}
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                ID Anulación
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nombre Cliente
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Número de factura Original
+                            </th>
+                             <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Total
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tipo
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse ($facturasAnuladas as $a)
+                            <tr class="hover:bg-gray-50">
+                           
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-900 font-medium">#{{ $a->id }}</span>
+                                </td>
+
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                       
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                {{ $a->invoice->client->bussiness_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                                   {{-- Numero de factura --}}
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">
+
+                                            <div class="flex items-center mt-1">
+                                               {{ $a->invoice->invoice_number }}
+                                            </div>                                       
+                                    </div>
+                                </td>
+
+                                   {{-- Total Factura--}}
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        
+                                        @if ($a->total)
+                                            <div class="flex items-center mt-1">
+                                                <span class="truncate max-w-xs">{{getMoney($a->total)  }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </td>
+
+                               
+
+                                {{-- Estado --}}
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-red-600 font-bold">
+                                         <i class="fas fa-solid fa-thumbtack mr-1"></i> Abono
+                                    </span>
+                                </td>
+                                {{-- Acciones --}}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex space-x-2">
+                                        
+                                        {{-- <a href="{{ route('admin.abonos.show', $a->invoice_id) }}"
+                                            class="text-green-600 hover:text-green-900" title="Ver detalles">
+                                            <i class="fas fa-eye"></i>
+                                        </a> --}}
+
                                     </div>
                                 </td>
                             </tr>
@@ -263,27 +381,13 @@
                 </table>
             </div>
 
-            <!-- Paginación -->
-            {{-- @if ($facturas->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div class="text-sm text-gray-700 mb-4 md:mb-0">
-                            Mostrando {{ $facturas->firstItem() }} a {{ $facturas->lastItem() }} de
-                            {{ $facturas->total() }} resultados
-                        </div>
-                        <div>
-                            {{ $facturas->links() }}
-                        </div>
-                    </div>
-                </div>
-            @endif --}}
         </div>
 
-        <!-- Estadísticas Rápidas -->
+        {{-- Estadísticas Rápidas --}}
         <div class="mt-8">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Resumen</h3>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Total Facturas -->
+                {{-- Total Facturas --}}
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -296,7 +400,7 @@
                     </div>
                 </div>
 
-                <!-- Facturas Pagadas -->
+                {{-- Facturas Pagadas --}}
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center">
@@ -304,12 +408,12 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Pagadas</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{ $activosCount ?? 0 }}</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $pagadasCount ?? 0 }}</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Facturas Pendientes -->
+                {{-- Facturas Pendientes --}}
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-12 w-12 bg-red-100 rounded-lg flex items-center justify-center">
@@ -317,12 +421,12 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Pendientes</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{ $activosCount ?? 0 }}</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $pendientesCount ?? 0 }}</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Anuladas -->
+                {{-- Anuladas --}}
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -330,7 +434,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-red-600">Anuladas</p>
-                            <p class="text-2xl font-semibold text-red-900">{{ $nuevosEsteMes ?? 0 }}</p>
+                            <p class="text-2xl font-semibold text-red-900">{{ $anuladasCount ?? 0 }}</p>
                         </div>
                     </div>
                 </div>

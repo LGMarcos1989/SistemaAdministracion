@@ -12,7 +12,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="p-6">
-                <form action="{{ route('admin.clientes.update', $cliente) }}" method="POST">
+                <form novalidate action="{{ route('admin.clientes.update', $cliente) }}" method="POST">
                     @csrf
                     @method('PUT')
 

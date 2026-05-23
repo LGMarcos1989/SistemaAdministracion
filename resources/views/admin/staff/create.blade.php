@@ -12,7 +12,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -163,7 +163,7 @@
 
                       <div class="my-5">
   <div class="mb-8">
-                        <h3 class="text-md font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">
+                        <h3 class="text-md font-semibold text-gray-700 mb-5 pb-2 border-b border-gray-100">
                             <i class="fas fa-id-card text-blue-500 mr-2"></i> Credenciales de Acesso de Usuario
                         </h3>
 
@@ -199,7 +199,7 @@
                                 </label>
                                 <select id="user_type_id" name="user_type_id" 
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase">
-                                <option disabled selected>Seleccione</option>
+                                <option disabled selected>Perfil del usuario</option>
                                 @foreach ($user_types as $ut )
                                     <option value="{{ $ut->id }}">{{ $ut->name }}</option>
                                 @endforeach
@@ -208,6 +208,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            
                         </div>
                     </div>
                     </div>

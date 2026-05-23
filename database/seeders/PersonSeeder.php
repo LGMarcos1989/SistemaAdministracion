@@ -21,6 +21,7 @@ class PersonSeeder extends Seeder
                 'city' => 'Madrid',
                 'phone' => '0923921839128',
                 'user_id' => 1,
+                'isActive' =>1
             ],
             [
                 'fullname' => 'Lorena',
@@ -29,7 +30,9 @@ class PersonSeeder extends Seeder
                 'city' => 'Valladolid',
                 'phone' => '092392181092',
                 'user_id' => 2,
+                'isActive' =>1
             ],
+            
         ];
 
          PersonModel::upsert($data,['dni'],[]);

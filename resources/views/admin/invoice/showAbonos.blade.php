@@ -1,7 +1,7 @@
 {{-- resources/views/admin/facturacion/show.blade.php --}}
 @extends('layouts.theme')
 
-@section('title', 'Facturación | Ver Factura #' . ($facturacion->invoice_number ?? ''))
+@section('title', 'Abonos | Detalle de la Anulación #' . ($abonos->id ?? ''))
 
 @section('section')
     <div class="container mx-auto px-4 py-6">
@@ -10,17 +10,14 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-800">Facturación</h1>
-                    <p class="text-gray-600 mt-2">Detalles de la factura #{{ $facturacion->invoice_number ?? 'N/A' }}</p>
+                    <p class="text-gray-600 mt-2">Detalles de la factura #{{ $abonos->invoice_number ?? 'N/A' }}</p>
                 </div>
                 <div class="mt-4 md:mt-0 flex space-x-3 no-print">
                     <a href="{{ route('admin.facturacion.index') }}"
                         class="inline-flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 font-medium">
                         <i class="fas fa-arrow-left mr-2"></i> Volver
                     </a>
-                    <a href="{{ route('admin.facturacion.edit', $facturacion->id) }}"
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
-                        <i class="fas fa-edit mr-2"></i> Editar
-                    </a>
+                    
                     <button onclick="window.print()"
                         class="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
                         <i class="fas fa-print mr-2"></i> Imprimir
@@ -44,7 +41,7 @@
                 </li>
                 <li class="flex items-center">
                     <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
-                    <span class="ml-2 text-gray-500">Factura #{{ $facturacion->invoice_number ?? 'N/A' }}</span>
+                    {{-- <span class="ml-2 text-gray-500">Factura #{{ $abonos->invoice_number ?? 'N/A' }}</span> --}}
                 </li>
             </ol>
         </nav>
@@ -85,7 +82,7 @@
                     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
                         <h2 class="text-lg font-semibold text-gray-800">
                             <i class="fas fa-file-invoice mr-2 text-blue-600"></i>
-                            Información de la Factura
+                            Información de la Factura Abonada
                         </h2>
                     </div>
                     <div class="p-6">

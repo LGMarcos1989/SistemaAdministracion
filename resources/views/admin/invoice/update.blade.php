@@ -1,6 +1,6 @@
 @extends('layouts.theme')
 
-@section('title', 'Nueva Factura | Sistema')
+@section('title', 'Actualizar Factura | Sistema')
 
 @section('section')
 
@@ -13,7 +13,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>

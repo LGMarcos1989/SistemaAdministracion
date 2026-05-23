@@ -24,7 +24,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -75,7 +75,7 @@
                             </div>
                             <input type="text" name="search" value="{{ request('search') }}"
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Buscar por nombre, apellido o CIF...">
+                                placeholder="Buscar por razón social, CIF o email.">
                         </div>
                     </div>
 
@@ -84,9 +84,8 @@
                         <select name="status"
                             class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             <option value="">Todos los estados</option>
-                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Activo</option>
-                            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactivo
-                            </option>
+                            <option value="Abierto" {{ request('status') == 'Abierto' ? 'selected' : '' }}>Abierto</option>
+                            <option value="Cerrado" {{ request('status') == 'Cerrado' ? 'selected' : '' }}>Cerrado</option>
                         </select>
                     </div>
 
@@ -315,8 +314,8 @@
                             <i class="fas fa-user-check text-green-600"></i>
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Activos</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{ $activosCount ?? 0 }}</p>
+                            <p class="text-sm font-medium text-gray-600">Abiertos</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $abiertoCount ?? 0 }}</p>
                         </div>
                     </div>
                 </div>
@@ -328,8 +327,8 @@
                             <i class="fas fa-user-times text-red-600"></i>
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Inactivos</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{ $inactivosCount ?? 0 }}</p>
+                            <p class="text-sm font-medium text-gray-600">Cerrados</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $cerradoCount ?? 0 }}</p>
                         </div>
                     </div>
                 </div>

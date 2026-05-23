@@ -15,7 +15,12 @@ class PersonModel extends Model
         'city',
         'phone',
         'user_id',
+        'isActive',
     ];
+    protected $casts = [
+    'isActive' => 'boolean',
+    'user_id' =>'integer'
+];
 
     public function user()
     {

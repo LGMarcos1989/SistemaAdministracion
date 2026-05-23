@@ -12,7 +12,7 @@
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -83,7 +83,7 @@
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                                    Nombre del Impuesto <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="name" name="name" value="{{ old($impuesto->name) }}"
+                                <input type="text" id="name" name="name" value="{{ old('impuesto',$impuesto->name) }}" 
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Ej: S6 - IVA ">
                                 @error('name')
@@ -97,7 +97,7 @@
                                 <label for="value" class="block text-sm font-medium text-gray-700 mb-2">
                                     Valor <span class="text-red-500">*</span>
                                 </label>
-                                <input type="number" id="value" name="value" value="{{ old($impuesto->value) }}"
+                                <input type="number" id="value" name="value" value="{{ old('impuesto',$impuesto->value) }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase"
                                     placeholder="Ej: 21" required>
                                 @error('value')

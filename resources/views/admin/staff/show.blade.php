@@ -33,7 +33,7 @@
         <nav class="mb-6 no-print">
             <ol class="flex items-center space-x-2 text-sm">
                 <li>
-                    <a href="{{ route('admin.home.index') }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('admin.home') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -191,36 +191,6 @@
                     </div>
                 </div>
 
-                <!-- Resumen Rápido -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                        <h2 class="text-lg font-semibold text-gray-800">
-                            <i class="fas fa-chart-simple mr-2 text-blue-600"></i>
-                            Resumen
-                        </h2>
-                    </div>
-                    <div class="p-6">
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">ID de Usuario:</span>
-                                <span class="font-mono text-gray-900">#{{ $staff->id ?? 'N/A' }}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Nombre Completo:</span>
-                                <span class="font-medium text-gray-900">{{ $staff->fullname ?? '' }} {{ $staff->lastname ?? '' }}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">DNI:</span>
-                                <span class="font-mono uppercase">{{ $staff->dni ?? 'N/A' }}</span>
-                            </div>
-                            <div class="flex justify-between pt-3 border-t border-gray-200">
-                                <span class="font-bold text-gray-800">Email:</span>
-                                <span class="text-blue-600">{{ $staff->email ?? 'N/A' }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Acciones Rápidas -->
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden no-print">
                     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
@@ -235,25 +205,11 @@
                             <i class="fas fa-pen text-blue-600 w-6"></i>
                             <span class="ml-3 text-gray-700">Editar Usuario</span>
                         </a>
-                        @if(($staff->userType->name ?? '') !== 'Administrador')
-                            <button type="button"
-                                onclick="if(confirm('¿Está seguro de que desea deshabilitar este usuario? Esta acción se puede revertir.')) { document.getElementById('disable-form').submit(); }"
-                                class="w-full text-left flex items-center p-3 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors">
-                                <i class="fas fa-user-slash text-yellow-600 w-6"></i>
-                                <span class="ml-3 text-yellow-700">Deshabilitar Usuario</span>
-                            </button>
-                        @endif
-                        @if(($staff->userType->name ?? '') !== 'Administrador')
-                            <button type="button"
-                                onclick="if(confirm('¿Está seguro de que desea eliminar este usuario? Esta acción no se puede deshacer.')) { document.getElementById('delete-form').submit(); }"
-                                class="w-full text-left flex items-center p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
-                                <i class="fas fa-trash-alt text-red-600 w-6"></i>
-                                <span class="ml-3 text-red-700">Eliminar Usuario</span>
-                            </button>
-                        @endif
+
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
