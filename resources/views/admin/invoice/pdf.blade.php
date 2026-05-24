@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura {{ $invoice->number }}</title>
+    <title>Factura {{ $invoice->invoice_number }}</title>
     <style>
         * {
             margin: 0;
@@ -44,8 +44,15 @@
             text-align: right;
         }
 
-        .company-name {
+        .company-invoice {
             font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 5px;
+        }
+
+        .company-name {
+            font-size: 20px;
             font-weight: bold;
             color: #1e40af;
             margin-bottom: 5px;
@@ -147,7 +154,7 @@
         .details-table th {
             background-color: #f3f4f6;
             padding: 12px;
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             color: #374151;
             border-bottom: 2px solid #e5e7eb;
@@ -156,6 +163,7 @@
 
         .details-table td {
             padding: 10px 12px;
+            text-align: center;
             border-bottom: 1px solid #e5e7eb;
             font-size: 11px;
         }
@@ -242,23 +250,27 @@
     <div class="invoice-container">
         <div class="header">
             <div class="company-info">
-                <div class="company-name">SISTEMA DE FACTURACIÓN</div>
+                <div class="company-invoice">FACTURACIÓN DIGITAL</div>
+                <div class="company-name">{{ $info['bussiness_name'] }}</div>
                 <div class="company-details">
-                    <div>RUC: 12345678901</div>
-                    <div>Dirección: Av. Principal #123, Ciudad</div>
-                    <div>Teléfono: (123) 456-7890</div>
-                    <div>Email: info@sistema.com</div>
+                    <div>CIF: {{$info['cif']}}</div>
+                    <div>Dirección: {{$info['adress']}}</div>
+                    <div>Teléfono: {{$info['phone']}}</div>
+                    <div>Email: {{$info['email']}}</div>
                 </div>
             </div>
             <div class="invoice-title">
                 <div class="invoice-number">FACTURA</div>
-                <div class="invoice-number" style="font-size: 20px;">{{ $invoice->number }}</div>
+                <div class="invoice-number" style="font-size: 20px;">{{ $invoice->invoice_number }}</div>
                 <div class="mt-2">
                     <span class="invoice-status status-{{ strtolower($invoice->status) }}">
                         {{ $invoice->status }}
                     </span>
                 </div>
             </div>
+            <div class="clearfix"></div>
+        </div>
+          
             <div class="clearfix"></div>
         </div>
 
@@ -297,20 +309,16 @@
                 <div class="section-title">DETALLES DE LA FACTURA</div>
                 <div class="info-row">
                     <span class="info-label">N° Factura:</span>
-                    <span class="info-value">{{ $invoice->number }}</span>
+                    <span class="info-value">{{ $invoice->invoice_number }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Fecha Emisión:</span>
-                    <span class="info-value">{{ \Carbon\Carbon::parse($invoice->date)->format('d/m/Y H:i') }}</span>
+                    <span class="info-value">{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d/m/Y') }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Estado:</span>
                     <span class="info-value">{{ $invoice->status }}</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Fecha Generación:</span>
-                    <span class="info-value">{{ $generated_date }}</span>
-                </div>
+                </div>    
             </div>
             <div class="clearfix"></div>
         </div>

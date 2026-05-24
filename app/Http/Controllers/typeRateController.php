@@ -32,7 +32,7 @@ class typeRateController extends Controller
     {
         $request->validate([
             'name'=> 'required|string',
-            'value' => 'required|integer|min:1',
+            'value' => 'required|integer|min:0',
         ]);
 
         typeRateModel::create([
@@ -70,7 +70,7 @@ class typeRateController extends Controller
     {
          $request->validate([
             'name'=> 'required|string',
-            'value' => 'required|integer|min:1',
+            'value' => 'required|integer|min:0',
         ]);
 
         // Llamamos a la variable que hemos almacenado para actualizarla

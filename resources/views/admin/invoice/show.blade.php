@@ -271,7 +271,7 @@
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Impuesto:</span>
                                     <span class="font-medium">
-                                        {{ getMoney(($facturacion->tax_base / 100) * (($facturacion->type_rate->value ?? 0))) }}
+                                        {{ getMoney(($facturacion->tax_base) * (($facturacion->type_rate->value/100 ?? 0))) }}
                                     </span>
                                 </div>
                             @endif

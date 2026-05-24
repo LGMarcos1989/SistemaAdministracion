@@ -123,16 +123,25 @@ class InvoiceController extends Controller
         
         if ($facturacion->type_rate) {
             $taxRate = $facturacion->type_rate->value;
-            $taxAmount = ($facturacion->tax_base / 100) * ($taxRate / 100);
+            $taxAmount = ($facturacion->tax_base) * ($taxRate / 100);
         }
+
+        $info = [
+            'bussiness_name' => 'Loren Admin S.L.',
+            'cif' => 'B47318899',
+            'adress' => 'C/ Nueva, 9',
+            'phone' => '669405070',
+            'email' => 'admin@lorenadmin.com'
+        ];
+
         
         $data = [
+            'info'=>$info,
             'invoice' => $facturacion,
             'taxAmount' => $taxAmount,
             'taxRate' => $taxRate,
-            'subtotal' => $facturacion->tax_base / 100,
-            'total' => $facturacion->total / 100,
-            'generated_date' => now()->format('d/m/Y H:i:s')
+            'subtotal' => $facturacion->tax_base,
+            'total' => $facturacion->total,
         ];
         
         $pdf = Pdf::loadView('admin.invoice.pdf', $data);
@@ -178,7 +187,7 @@ class InvoiceController extends Controller
         if($request->status === 'Anulada'){
           cancelledInvoiceModel::create([
                 'invoice_id' => $facturacion->id,
-                'total' => $facturacion->total, 
+                'total' =>'-'. $facturacion->total, 
            ]);
         }
 
